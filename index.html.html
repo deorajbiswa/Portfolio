@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deo Raj Biswa | Electrical & Electronics Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #21262d;
+    --accent: #e6a817;
+    --accent2: #3d8ef0;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --card: #1c2128;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,17,23,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 80px 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(230,168,23,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 20% 80%, rgba(61,142,240,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(230,168,23,0.1);
+    border: 1px solid rgba(230,168,23,0.3);
+    border-radius: 100px;
+    padding: 0.3rem 1rem;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-title {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.3s forwards;
+  }
+  .hero-title strong { color: var(--accent2); font-weight: 500; }
+  .hero-bio {
+    font-size: 0.95rem;
+    color: #c9d1d9;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+  }
+  .hero-buttons {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
+  }
+  .btn {
+    padding: 0.65rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+  }
+  .btn-primary:hover { background: #f5b92a; transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: var(--surface);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  /* HERO RIGHT - STATS CARD */
+  .hero-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+  }
+  .hero-card-header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .avatar {
+    width: 75px; height: 75px; border-radius: 50%;
+    object-fit: cover; /* Keeps the image from stretching */
+    border: 2px solid var(--accent); /* Optional: adds a nice gold ring border */
+    flex-shrink: 0;
+  }
+  .card-name { font-weight: 600; font-size: 0.95rem; }
+  .card-sub { font-size: 0.78rem; color: var(--muted); }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+  .stat {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .ids { display: flex; flex-direction: column; gap: 0.5rem; }
+  .id-item {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--muted);
+    background: var(--surface);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+  }
+  .id-item span { color: var(--accent2); font-family: monospace; }
+
+  /* SECTION */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+  }
+  .divider {
+    width: 48px; height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-bottom: 3rem;
+  }
+
+  /* RESEARCH AREAS */
+  #research { background: var(--surface); }
+  .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+  .research-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .research-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .research-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .research-card:hover::after { transform: scaleX(1); }
+  .research-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .research-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .research-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* PUBLICATIONS */
+  .pub-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .pub-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .pub-item:hover { border-color: var(--accent2); }
+  .pub-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 52px;
+    line-height: 1;
+    padding-top: 0.2rem;
+  }
+  .pub-content {}
+  .pub-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .pub-journal { font-size: 0.78rem; color: var(--accent2); margin-bottom: 0.4rem; }
+  .pub-doi { font-size: 0.72rem; color: var(--muted); font-family: monospace; }
+  .pub-doi a { color: var(--muted); text-decoration: none; }
+  .pub-doi a:hover { color: var(--accent); }
+  .pub-type {
+    display: inline-block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(61,142,240,0.12);
+    color: var(--accent2);
+    margin-top: 0.5rem;
+  }
+
+  /* FUNDING */
+  #funding { background: var(--surface); }
+  .funding-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+  .funding-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .funding-item:hover { border-color: var(--accent); }
+  .funding-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent);
+    margin-top: 0.55rem; flex-shrink: 0;
+  }
+  .funding-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.3rem; line-height: 1.4; }
+  .funding-agency { font-size: 0.78rem; color: var(--accent2); margin-bottom: 0.2rem; }
+  .funding-years { font-size: 0.72rem; color: var(--muted); }
+
+  /* EDUCATION & EMPLOYMENT */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: flex; gap: 2rem;
+    padding-bottom: 2rem;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: 9px; top: 22px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item:last-child::before { display: none; }
+  .timeline-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    outline: 1px solid var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .timeline-content {}
+  .timeline-period { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+  .timeline-role { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .timeline-org { font-size: 0.82rem; color: var(--accent2); }
+
+  /* TWO COLUMN LAYOUT */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+
+  /* CONTACT */
+  #contact { background: var(--surface); }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+  .contact-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .contact-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .contact-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+  .contact-type { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; }
+  .contact-value { font-size: 0.85rem; color: var(--accent2); word-break: break-all; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-grid, .two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+    .hero { padding-top: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Deo Raj Biswa</div>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#funding">Funding</a></li>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge">🇧🇹 Bhutan &nbsp;·&nbsp; JNEC / RUB</div>
+      <h1 class="hero-name">Deo Raj<br><span>Biswa</span></h1>
+      <p class="hero-title">
+        Associate Lecturer &amp; <strong>Head of Department</strong><br>
+        Electrical &amp; Electronics Engineering · JNEC, RUB
+      </p>
+      <p class="hero-bio">
+        Engineering educator, researcher, and technology advocate based in Bhutan.
+        Focused on appropriate technology, STEM education, IoT, and mechatronics —
+        with active research funding from UNICEF, WIPO, REF, and BTFEC.
+      </p>
+      <div class="hero-buttons">
+        <a href="#publications" class="btn btn-primary">View Publications</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-card-header">
+  	<img src="myPic.jpeg" alt="Deo Raj Biswa" class="avatar">
+  	<div>
+    	   <div class="card-name">Deo Raj Biswa</div>
+           <div class="card-sub">MEng Mechatronics · AIT Thailand</div>
+        </div>
+     </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-num">9</div>
+          <div class="stat-label">Publications</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">7</div>
+          <div class="stat-label">Research Grants</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years Teaching</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">9</div>
+          <div class="stat-label">Peer Reviews</div>
+        </div>
+      </div>
+      <div class="ids">
+        <div class="id-item">ORCID <span>0000-0002-9298-3360</span></div>
+        <div class="id-item">Scopus <span>57849829400</span></div>
+        <div class="id-item">ResearcherID <span>NFT-2170-2025</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="section-label">Areas of Interest</div>
+    <h2 class="section-title">Research Focus</h2>
+    <div class="research-grid reveal">
+      <div class="research-card">
+        <div class="research-icon">🔧</div>
+        <h3>Appropriate Technology</h3>
+        <p>Community-centered technology solutions suited to local needs and resources in Bhutan.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🔬</div>
+        <h3>STEM Education</h3>
+        <p>Grassroots STEM outreach, hands-on learning platforms, and digital divide bridging.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">⚡</div>
+        <h3>Energy-Efficient Systems</h3>
+        <p>Lighting design and energy optimization for institutional and community infrastructure.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🌐</div>
+        <h3>IoT &amp; AI</h3>
+        <p>Internet of Things applications and AI-enhanced STEM education delivery.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🤖</div>
+        <h3>Mechatronics</h3>
+        <p>Robotic systems, automated devices, and integrated electromechanical design.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🏫</div>
+        <h3>Higher Education</h3>
+        <p>Pedagogy, student confidence building, and engineering education quality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="section-label">Scholarly Work</div>
+    <h2 class="section-title">Publications</h2>
+    <div class="pub-list reveal">
+
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-content">
+          <div class="pub-title">Building Self-Confidence in Students: Techniques and Impacts</div>
+          <div class="pub-journal">Journal of Applied Engineering, Technology and Management</div>
+          <div class="pub-doi">DOI: <a href="https://doi.org/10.54417/jaetm.v5i1.141" target="_blank">10.54417/jaetm.v5i1.141</a></div>
+          <span class="pub-type">Journal Article</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-content">
+          <div class="pub-title">Development of a Small-Scale 3D Concrete Printer</div>
+          <div class="pub-journal">Journal of Applied Engineering, Technology and Management</div>
+          <div class="pub-doi">DOI: <a href="https://doi.org/10.54417/jaetm.v5i1.142" target="_blank">10.54417/jaetm.v5i1.142</a></div>
+          <span class="pub-type">Journal Article</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div class="pub-content">
+          <div class="pub-title">Enhanced Interest in STEM Among Students Through Access to Hands-on Learning Platforms</div>
+          <div class="pub-journal">TechRxiv</div>
+          <div class="pub-doi">DOI: <a href="https://doi.org/10.36227/techrxiv.173152604.43907252/v1" target="_blank">10.36227/techrxiv.173152604.43907252/v1</a></div>
+          <span class="pub-type">Preprint</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-content">
+          <div class="pub-title">Automated Wheelchair for Differently Abled Person with Fall Detection and Maneuverability</div>
+          <div class="pub-journal">Journal of Applied Engineering, Technology and Management</div>
+          <div class="pub-doi">DOI: <a href="https://doi.org/10.54417/jaetm.v3i1.108" target="_blank">10.54417/jaetm.v3i1.108</a></div>
+          <span class="pub-type">Journal Article</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-content">
+          <div class="pub-title">Energy Efficient Lighting Design — A Case Study of Jigme Namgyel Engineering College</div>
+          <div class="pub-journal">Journal of Applied Engineering, Technology and Management</div>
+          <div class="pub-doi">DOI: <a href="https://doi.org/10.54417/jaetm.v3i1.112" target="_blank">10.54417/jaetm.v3i1.112</a></div>
+          <span class="pub-type">Journal Article</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-content">
+          <div class="pub-title">Importance of Modern STEM Technologies for Transformation of STEM Education at Grassroots Level: An Experimental Study in Bhutan</div>
+          <div class="pub-journal">Journal of Applied Engineering, Technology and Management</div>
+          <div class="pub-doi">DOI: <a href="https://doi.org/10.54417/jaetm.v3i1.104" target="_blank">10.54417/jaetm.v3i1.104</a></div>
+          <span class="pub-type">Journal Article</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2022</div>
+        <div class="pub-content">
+          <div class="pub-title">Early Access to Technologies Imperative to Accelerate STEM Education from Grassroots: An Experimental Study in Bhutan</div>
+          <div class="pub-journal">TechRxiv</div>
+          <div class="pub-doi">DOI: <a href="https://doi.org/10.36227/techrxiv.20362944" target="_blank">10.36227/techrxiv.20362944</a></div>
+          <span class="pub-type">Preprint</span>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2021</div>
+        <div class="pub-content">
+          <div class="pub-title">Electoral Process using Biometric Fingerprint Scanner that Suits the Bhutanese Election</div>
+          <div class="pub-journal">International Journal for Research in Applied Science and Engineering Technology</div>
+          <div class="pub-doi">DOI: <a href="https://doi.org/10.22214/ijraset.2021.36284" target="_blank">10.22214/ijraset.2021.36284</a></div>
+          <span class="pub-type">Journal Article</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FUNDING -->
+<section id="funding">
+  <div class="container">
+    <div class="section-label">Grants &amp; Projects</div>
+    <h2 class="section-title">Research Funding</h2>
+    <div class="funding-grid reveal">
+
+      <div class="funding-item">
+        <div class="funding-dot"></div>
+        <div>
+          <div class="funding-title">Bhutan India Friendship International Workshop</div>
+          <div class="funding-agency">Embassy of India, Thimphu</div>
+          <div class="funding-years">2025–2026</div>
+        </div>
+      </div>
+
+      <div class="funding-item">
+        <div class="funding-dot"></div>
+        <div>
+          <div class="funding-title">STEM Outreach Programme — EEE Pre-University STEM Portal</div>
+          <div class="funding-agency">IEEE (World)</div>
+          <div class="funding-years">2024</div>
+        </div>
+      </div>
+
+      <div class="funding-item">
+        <div class="funding-dot"></div>
+        <div>
+          <div class="funding-title">Facilitating Transfer of Appropriate Technology in Bhutan for Community Development</div>
+          <div class="funding-agency">WIPO, Geneva</div>
+          <div class="funding-years">2023–2025</div>
+        </div>
+      </div>
+
+      <div class="funding-item">
+        <div class="funding-dot"></div>
+        <div>
+          <div class="funding-title">Environmental Impacts of Organic Waste &amp; IVC Stabilization for Rural Communities</div>
+          <div class="funding-agency">BTFEC, Thimphu</div>
+          <div class="funding-years">2023–2024</div>
+        </div>
+      </div>
+
+      <div class="funding-item">
+        <div class="funding-dot"></div>
+        <div>
+          <div class="funding-title">Grassroots STEM Outreach: Bridging the Digital Divide in Rural Youth</div>
+          <div class="funding-agency">UNICEF-Bhutan, Thimphu &amp; Samdrup Jongkhar</div>
+          <div class="funding-years">2022–2023</div>
+        </div>
+      </div>
+
+      <div class="funding-item">
+        <div class="funding-dot"></div>
+        <div>
+          <div class="funding-title">Transforming STEM Education to IoT STEM AI: Reaching Emerging Technologies to Grassroots</div>
+          <div class="funding-agency">REF / RUB, Thimphu</div>
+          <div class="funding-years">2021–2022</div>
+        </div>
+      </div>
+
+      <div class="funding-item">
+        <div class="funding-dot"></div>
+        <div>
+          <div class="funding-title">Electoral Process using Biometric Fingerprint Scanner</div>
+          <div class="funding-agency">AURG / RUB, Thimphu</div>
+          <div class="funding-years">2016–2017</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BACKGROUND -->
+<section id="background">
+  <div class="container">
+    <div class="section-label">Career &amp; Education</div>
+    <h2 class="section-title">Background</h2>
+    <div class="two-col reveal">
+      <div>
+        <h3 style="font-size:1rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:1.5rem;">Employment</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">Jul 2024 – Present</div>
+              <div class="timeline-role">Head of Department</div>
+              <div class="timeline-org">Dept. of EEE, JNEC · Dewathang, Samdrup Jongkhar</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">2023 – 2024</div>
+              <div class="timeline-role">Center Head / Coordinator</div>
+              <div class="timeline-org">Centre for Appropriate Technology &amp; TISC · JNEC</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">2014 – Present</div>
+              <div class="timeline-role">Associate Lecturer</div>
+              <div class="timeline-org">Electronics &amp; Communication Eng. · JNEC, RUB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:1.5rem;">Education</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--accent2); outline-color:var(--accent2);"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">2018–2020</div>
+              <div class="timeline-role">MEng in Mechatronics</div>
+              <div class="timeline-org">Asian Institute of Technology, Thailand</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--accent2); outline-color:var(--accent2);"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">2017–2018</div>
+              <div class="timeline-role">PGDip in Higher Education</div>
+              <div class="timeline-org">Samtse College of Education, Bhutan</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--accent2); outline-color:var(--accent2);"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">2009–2013</div>
+              <div class="timeline-role">BTech in Electronics &amp; Communication Eng.</div>
+              <div class="timeline-org">EIILM University, India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid reveal">
+      <a href="mailto:deoraj.jnec@rub.edu.bt" class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-type">Institutional Email</div>
+        <div class="contact-value">deoraj.jnec@rub.edu.bt</div>
+      </a>
+      <a href="mailto:deorajbiswa@jnec.edu.bt" class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-type">College Email</div>
+        <div class="contact-value">deorajbiswa@jnec.edu.bt</div>
+      </a>
+      <a href="https://orcid.org/0000-0002-9298-3360" target="_blank" class="contact-card">
+        <div class="contact-icon">🆔</div>
+        <div class="contact-type">ORCID Profile</div>
+        <div class="contact-value">0000-0002-9298-3360</div>
+      </a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57849829400" target="_blank" class="contact-card">
+        <div class="contact-icon">📚</div>
+        <div class="contact-type">Scopus</div>
+        <div class="contact-value">57849829400</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Deo Raj Biswa · Associate Lecturer &amp; HoD, EEE · <a href="https://www.jnec.edu.bt" target="_blank">JNEC</a>, Royal University of Bhutan</p>
+  <p style="margin-top:0.4rem;">ORCID: <a href="https://orcid.org/0000-0002-9298-3360" target="_blank">0000-0002-9298-3360</a></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
